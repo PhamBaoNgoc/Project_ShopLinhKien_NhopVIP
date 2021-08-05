@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ShopLinhKien.Models.leaseItem>
+@foreach (var item in Model)
+{
+        <div class="col-md-4 py-2 ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title text-dark pt-1"><h5 class="font-weight-bold text-info text-center">@item.Name</h5></div>
+                    <div class="card-title text-dark pt-1"><h6 class="font-weight-bold text-info text-center">@item.Description</h6></div>
+                    <div style="height:430px;" class="p-3" >
+                        @Html.Raw(item.Content)
+                    </div>
+                    <form action="~/leaseOrders/leaseOrder" method="post">
+                        <label for="cars">Chọn thời hạn thuê:</label>
+                        <select id="cars" name="ngayThue" >
+                            <option value="1">1 ngày</option>
+                            <option value="7">1 tuần</option>
+                            <option value="30" selected>1 tháng</option>
+                            <option value="90">3 tháng</option>
+                            <option value="180">6 tháng</option>
+                        </select>
+                        <input type="hidden" value="@item.ID" name="Id" />
+                        <div class="card-title text-dark">
+                            <button type="submit" class="btn btn-sm text-white btn-info w-100">Thuê ngay</button>
+                            <input type="hidden" value="1" id="sel1" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+}

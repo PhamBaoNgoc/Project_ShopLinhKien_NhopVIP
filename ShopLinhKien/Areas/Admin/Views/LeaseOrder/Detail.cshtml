@@ -1,0 +1,151 @@
+﻿@model ShopLinhKien.Models.LeaseOrder
+
+@{
+    /**/
+
+    ViewBag.Title = "Lease Order";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@Html.Partial("~/Areas/Admin/Views/Shared/_topMenu.cshtml")
+@Html.Partial("~/Areas/Admin/Views/Shared/_leftMenu.cshtml")
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row m-0">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Quản Lý đơn đặt thuê</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Ci tiết đơn thuê </li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <section>
+        <!-- section -->
+        <div class="section pt-4">
+            <!-- container -->
+            <div class="container bg-white">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="order-summary clearfix">
+                            <div class="section-title">
+                               
+                                <h3 class="title text-cam">Thông tin đơn đặt thuê</h3>
+
+                            </div>
+
+                            <table class="shopping-cart-table table">
+
+                                <tbody>
+                                    <tr>
+                                        <td class=""><h5>Tên khách hàng: </h5></td>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""><h5>mã đơn hàng</h5></td>
+                                        <td>@Model.ID</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""><h5>Email</h5></td>
+                                        <td>@Model.Emal</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""><h5>Số điện thoại</h5></td>
+                                        <td>@Model.Phone</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""><h5>Hình thức thanh toán</h5></td>
+                                        <td>@Model.PaymentMethod</td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""><h5>Trạng thái thanh toán</h5></td>
+                                        @if (@Model.StatusPayment == 1)
+                                        {
+                                            <td>Đã thanh toán</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Chưa thanh toán vui lòng thanh toán lại</td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /row -->
+                <!-- /container -->
+
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title text-cam">Thông Tin Đơn Hàng</h3>
+                    </div>
+                    <div class=" ">
+
+                        <h6 class="bg-cam font-weight-bold text-center border-bottom py-2 text-white">Dịch vụ</h6>
+                        <div class="">
+                            <div class="card-body">
+                                <div class="card-title text-dark pt-1"><h5 class="font-weight-bold text-info text-center">@ViewBag.leaseItem.Name</h5></div>
+                                <div class="card-title text-dark pt-1"><h6 class="font-weight-bold text-info text-center">@ViewBag.leaseItem.Description</h6></div>
+                                <div style="height:430px;" class="p-3">
+                                    @Html.Raw(ViewBag.leaseItem.Content)
+                                </div>
+
+                            </div>
+                        </div>
+                        <input type="hidden" value="asdasda" name="sumOrder" />
+                        @{
+                            var sum = (int)@ViewBag.leaseItem.Price * (int)Model.RentalPeriod;
+
+                        }
+                        <p class="p-3">ngày thuê: @Model.RentalPeriod X @ViewBag.leaseItem.Price.ToString("N0") VND /Ngày</p>
+                        <br />
+                        <input type="hidden" name="sum" value="@sum" />
+                        <h5 class="pl-2"> Tổng thanh toán: <span class="text-cam font-weight-bold">@sum.ToString("N0") VND</span> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .shopping-cart-table > tbody > tr > .thumb > img {
+                width: 60px;
+            }
+
+            .section-title {
+                position: relative;
+                margin-bottom: 15px;
+                margin-top: 15px;
+                border-bottom: 1px solid #DADADA;
+            }
+
+                .section-title .title {
+                    display: inline-block;
+                    text-transform: uppercase;
+                }
+
+                .section-title:after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    bottom: -1.5px;
+                    height: 3px;
+                    width: 60px;
+                    background-color: #F8694A;
+                }
+        </style>
+    </section>
+
+    <script>
+        $("#LeaseOrder").addClass("active");
+    </script>
+
